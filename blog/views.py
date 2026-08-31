@@ -1,7 +1,8 @@
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
-from django.views.generic import TemplateView, ListView, DetailView, CreateView
+from django.views.generic import TemplateView, ListView, DetailView, CreateView, UpdateView, DeleteView
 
+from blog.forms import PostCreateView
 from blog.models import Category
 from blog.models import Post
 
@@ -85,4 +86,15 @@ class PostCreateView(CreateView):
     model = Post
     template_name = 'blog/post_create_view.html'
     success_url = "posts_list_view"
-    fields = ['title', 'header_image', 'title_tag', 'author', 'body', 'snippet', 'category']
+    form_class = PostCreateView
+
+class PostUpdateView(UpdateView):
+    model = Post
+    template_name = 'blog/post_update_view.html'
+    success_url = "../../posts_list_view"
+    fields = ['title', 'header_image', 'title_tag', 'body', 'snippet', 'category']
+
+class PostDeleteView(DeleteView):
+    model = Post
+    template_name = "blog/post_delete_view.html"
+    success_url = "../../posts_list_view"

@@ -7,7 +7,15 @@
     <p>
         {% for post in object_list %}
             <a href="{% url 'post_detail_view' post.pk %}">
-                {{ post.title }}
+                <h3>
+                    {{ post.title }}
+                </h3>
+            </a>
+            <a class="btn btn-primary" href="{% url 'post_update_view' post.pk %}">
+                Update
+            </a>
+            <a class="btn btn-danger" href="{% url 'post_delete_view' post.pk %}">
+                Delete
             </a>
             <br>
         {% endfor %}
