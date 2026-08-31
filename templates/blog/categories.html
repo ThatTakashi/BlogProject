@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block title %}
+    Categories
+{% endblock %}
+{% block content %}
+    <h1>Categories:</h1>
+    <form action="{% url 'category_create' %}" method="post">
+        {% csrf_token %}
+        <input type="text" name="name" placeholder="Category Name">
+        <button type="submit">Submit</button>
+    </form>
+    <p>A list of all current categories</p>
+    {% for category in categories %}
+        <form action="{% url 'category_update' category.id %}" method="post">
+            {% csrf_token %}
+            <input type="text" name="name" value="{{ category.name }}">
+            <button type="submit">Update</button>
+        </form>
+        <h4><a href = "{% url 'category' category.id %}">{{ category.name }}</a></h4>
+        <ul>
+            {% for post in category.post_set.all %}
+                <li>{{ post.title }}</li>
+                <p>Likes: {{ post.likes.count }}</p>
+                <h5>Post Comments:</h5>
+                {% for comment in post.comment_set.all %}
+                    <p>{{ comment.body }}</p>
+                {% endfor %}
+            {% endfor %}
+        </ul>
+        <form action="{% url 'category_delete' category.id %}" method="post">
+            {% csrf_token %}
+            <input type="hidden" name="category_id" value="{{ category.id }}">
+            <button type="submit">Delete Category</button>
+        </form>
+        <hr>
+    {% endfor %}
+{% endblock %}

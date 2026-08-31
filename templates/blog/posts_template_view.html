@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}
+    Posts Template View
+{% endblock %}
+{% block content %}
+    <h1>Posts Template View</h1>
+    <p>{{ categories }}</p>
+    {% for post in posts %}
+        <option value="{{ post.id }}">
+            {{ post.title }}
+        </option>
+    {% endfor %}
+    <hr>
+    {% for user in users %}
+        <option value="{{ user.id }}">
+            {{ user.username }}
+        </option>
+    {% endfor %}
+{% endblock %}

@@ -22,6 +22,9 @@ class Post(models.Model):
     snippet = models.CharField(max_length=100)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     likes = models.ManyToManyField(User, related_name='likes', blank=True)
+    body = models.TextField()
+    def __str__(self):
+        return self.title + ' | ' + self.author
 
     def __str__(self):
         return self.title
